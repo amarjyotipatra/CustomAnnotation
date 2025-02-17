@@ -24,7 +24,7 @@ public class TimeMonitorAspect {
 
             long totalExecutionTime = end - start;
 
-            System.out.println("Total time of execution of the method is: " + totalExecutionTime + " ms..");
+            System.out.println("Total time of execution of the method is: " + totalExecutionTime + " ms");
         }
     }
 }

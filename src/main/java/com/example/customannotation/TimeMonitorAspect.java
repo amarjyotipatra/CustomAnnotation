@@ -10,12 +10,21 @@ import org.springframework.stereotype.Component;
 public class TimeMonitorAspect {
 
     @Around("@annotation(TimeMonitor)")
-    public void logtime(ProceedingJoinPoint joinPoint) throws Throwable {
-        long startTime = System.currentTimeMillis(); //start time of code
-        //execute join point
+    public void logtime(ProceedingJoinPoint joinPoint){
+        long start = System.currentTimeMillis(); // start time of the code
 
-        long endTime = System.currentTimeMillis();
-        long totalExecutionTime = endTime - startTime;
-        System.out.println("Total execution time: " + totalExecutionTime + "ms.");
+        try {
+            // execute the join point
+            joinPoint.proceed();
+        }
+        catch (Throwable e) {
+            System.out.println("Something went wrong during the execution");
+        } finally {
+            long end = System.currentTimeMillis();
+
+            long totalExecutionTime = end - start;
+
+            System.out.println("Total time of execution of the method is: " + totalExecutionTime + " ms..");
+        }
     }
 }
